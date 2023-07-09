@@ -108,11 +108,11 @@ class HDRiotShieldExt:HDActor{
 			{
 				if((plr.player.readyweapon is "HDFist")
 				||(plr.player.readyweapon is "HDWeaponGrabber")
-				||(plr.player.readyweapon is "HDInjectorMaker")
 				||(plr.player.readyweapon is "HDHandgun")
 				||(plr.player.readyweapon is "HDGrenadeThrower")
-				||(plr.player.readyweapon is "Blooper"))
-				{plr.gunbraced=false;}
+				||(plr.player.readyweapon is "Blooper")
+				||(plr.player.readyweapon is "NullWeapon"))
+				{plr.gunbraced=false;plr.player.readyweapon.lookscale=0.35;}
 				else// if
 				{
 					plr.A_Log("Can't use long guns with this...");
@@ -126,11 +126,12 @@ class HDRiotShieldExt:HDActor{
 		else
 		{
 		Vector3 dest;
-		dest.xy = plr.pos.xy + AngleToVector(plr.angle+plr.leaned*5.5, 36);
+		dest.xy = plr.pos.xy + AngleToVector(plr.gunangle+plr.leaned*5.85, 36);
 		dest.z = plr.pos.z - 26 - sin(plr.pitch+45)*27 + 53 * plr.player.crouchfactor;
 		vel = dest - pos + plr.vel;
-		angle = plr.angle+plr.leaned*2;
-		pitch = plr.pitch*0.5;
+		angle = plr.gunangle+plr.leaned*2;
+		pitch = (plr.pitch*0.5)+plr.gunpitch*0.25;
+		
 		let hdrs = plr.checkinventory("HDRiotShieldItem",1);
 		if (!hdrs)
 			Destroy();

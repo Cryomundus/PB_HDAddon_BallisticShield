@@ -10,9 +10,9 @@ override void CheckReplacement(ReplaceEvent e) {
 		return;
 	switch (e.Replacee.GetClassName()) {
 	
-	//Ammo Pickups
+	//Shield spawn
 	
-		case 'PortableHealingItemBigger' 	: if (!random(0, 3)) {e.Replacement = "HDRiotShieldItem";}	break;
+		case 'BlueArmor' 					: if (!random(0, 3)) {e.Replacement = "HDRiotShieldItem";}	break;
 		}
 	e.IsFinal = false;
 	}
