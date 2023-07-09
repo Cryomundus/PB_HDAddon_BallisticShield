@@ -90,7 +90,6 @@ class HDRiotShieldExt:HDActor{
 	{
 		super.Tick();
 		let plr = HDPlayerPawn(target);
-		plr.
 		uptime++;
 		
 		if(plr && uptime>32 && Distance3D(plr) > 64)
