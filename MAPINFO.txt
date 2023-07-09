@@ -1,0 +1,3 @@
+GameInfo {
+	AddEventHandlers = "PB_BallisticShield_Spawner"
+}

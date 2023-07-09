@@ -12,7 +12,7 @@ override void CheckReplacement(ReplaceEvent e) {
 	
 	//Ammo Pickups
 	
-		case 'ShellRandom' 	: if (!random(0, 2)) {e.Replacement = "HDRiotShieldItem";}	break;
+		case 'PortableHealingItemBigger' 	: if (!random(0, 3)) {e.Replacement = "HDRiotShieldItem";}	break;
 		}
 	e.IsFinal = false;
 	}
