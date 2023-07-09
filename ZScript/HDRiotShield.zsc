@@ -100,7 +100,7 @@ class HDRiotShieldExt:HDActor{
 		
 		if(plr.player.readyweapon)
 		{
-			if((plr.player.readyweapon is "HDFist")||(plr.player.readyweapon is "HDHandgun"))
+			if(!(plr.player.readyweapon is "HDFist")||!(plr.player.readyweapon is "HDHandgun"))
 			{
 				plr.A_Log("Can't use long guns with this...");
 				plr.A_DropInventory("HDRiotShieldItem");
