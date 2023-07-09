@@ -98,7 +98,8 @@ class HDRiotShieldExt:HDActor{
 			plr.A_Log("Butter fingers...");
 		}
 		
-		if ((plr.player.readyweapon is "HDFist")||(plr.player.readyweapon is "HDHandgun"))
+		if(plr.player.readyweapon){return;}
+		if((plr.player.readyweapon is "HDFist")||(plr.player.readyweapon is "HDHandgun"))
 		{
 			plr.A_Log("Can't use long guns with this...");
 			plr.A_DropInventory("HDRiotShieldItem");
