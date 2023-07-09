@@ -13,6 +13,7 @@ class HDRiotShieldItem:HDPickup{
 		hdpickup.refid HDLD_RIOTSHIELD;
 		+hdpickup.notinpockets
 		-hdpickup.fitsinbackpack
+		inventory.maxamount 1;
 		tag "Ballistic Shield";
 	}
 	
@@ -23,7 +24,11 @@ class HDRiotShieldItem:HDPickup{
 	
 	states{
 	spawn:
-		RSH0 Z -1 A_SetPitch(270);
+		RSH0 Z -1 nodelay 
+		{
+			A_SetPitch(270);
+			A_SetAngle(frandom(0,360));
+		}
 		stop;
 	use:
 		TNT1 A 0 
@@ -97,13 +102,21 @@ class HDRiotShieldExt:HDActor{
 			plr.A_DropInventory("HDRiotShieldItem");
 			plr.A_Log("Butter fingers...");
 		}
-		
-		if(!plr.player.readyweapon)
+		if (plr)
 		{
-			if(!(plr.player.readyweapon is "HDFist")||!(plr.player.readyweapon is "HDHandgun"))
+			if(plr.player.readyweapon)
 			{
-				plr.A_Log("Can't use long guns with this...");
-				plr.A_DropInventory("HDRiotShieldItem");
+				if((plr.player.readyweapon is "HDFist")
+				||(plr.player.readyweapon is "HDWeaponGrabber")
+				||(plr.player.readyweapon is "HDHandgun")
+				||(plr.player.readyweapon is "HDGrenadeThrower")
+				||(plr.player.readyweapon is "Blooper"))
+				{plr.gunbraced=false;}
+				else// if
+				{
+					plr.A_Log("Can't use long guns with this...");
+					plr.A_DropInventory("HDRiotShieldItem");
+				}
 			}
 		}
 		if (!plr)
@@ -118,7 +131,7 @@ class HDRiotShieldExt:HDActor{
 		angle = plr.angle+plr.leaned*2;
 		pitch = plr.pitch*0.5;
 		let hdrs = plr.checkinventory("HDRiotShieldItem",1);
-		if (!hdrs||plr.incapacitated>0)
+		if (!hdrs)
 			Destroy();
 		}
 	}
