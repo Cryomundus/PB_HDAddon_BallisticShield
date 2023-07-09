@@ -99,7 +99,9 @@ class HDRiotShieldExt:HDActor{
 		}
 		
 		if (!(plr.ReadyWeapon is "HDFist")||!(plr.ReadyWeapon is "HDHandgun"))
+		{
 			plr.A_Log("Can't use long guns with this...");
+			plr.A_DropInventory("HDRiotShield");
 		}
 		
 		if (!plr)
