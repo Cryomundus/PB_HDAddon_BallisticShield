@@ -98,7 +98,7 @@ class HDRiotShieldExt:HDActor{
 			plr.A_Log("Butter fingers...");
 		}
 		
-		if (!(plr.ReadyWeapon is "HDFist")||!(plr.ReadyWeapon is "HDHandgun")||)
+		if (!(plr.ReadyWeapon is "HDFist")||!(plr.ReadyWeapon is "HDHandgun"))
 			plr.A_Log("Can't use long guns with this...");
 		}
 		
