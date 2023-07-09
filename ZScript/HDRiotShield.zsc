@@ -94,14 +94,14 @@ class HDRiotShieldExt:HDActor{
 		
 		if(plr && uptime>32 && Distance3D(plr) > 64)
 		{
-			plr.A_DropInventory("HDRiotShield");
+			plr.A_DropInventory("HDRiotShieldItem");
 			plr.A_Log("Butter fingers...");
 		}
 		
 		if (!(plr.ReadyWeapon is "HDFist")||!(plr.ReadyWeapon is "HDHandgun"))
 		{
 			plr.A_Log("Can't use long guns with this...");
-			plr.A_DropInventory("HDRiotShield");
+			plr.DropInventory(player.readyweapon);
 		}
 		
 		if (!plr)
@@ -115,7 +115,7 @@ class HDRiotShieldExt:HDActor{
 		vel = dest - pos + plr.vel;
 		angle = plr.angle+plr.leaned*2;
 		pitch = plr.pitch*0.5;
-		let hdrs = plr.checkinventory("HDRiotShield",1);
+		let hdrs = plr.checkinventory("HDRiotShieldItem",1);
 		if (!hdrs||plr.incapacitated>0)
 			Destroy();
 		}
