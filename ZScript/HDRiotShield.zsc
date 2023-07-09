@@ -108,6 +108,7 @@ class HDRiotShieldExt:HDActor{
 			{
 				if((plr.player.readyweapon is "HDFist")
 				||(plr.player.readyweapon is "HDWeaponGrabber")
+				||(plr.player.readyweapon is "HDInjectorMaker")
 				||(plr.player.readyweapon is "HDHandgun")
 				||(plr.player.readyweapon is "HDGrenadeThrower")
 				||(plr.player.readyweapon is "Blooper"))
