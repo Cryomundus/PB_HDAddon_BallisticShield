@@ -56,12 +56,14 @@ class HDRiotShieldItem:HDPickup{
 			hdp.stunned+=52;
 		}
 	shield.ready:
-		TNT1 A 0
+		TNT1 A 1
 		{
 		A_Log("Ready! Use item again to stow away.");
 		if(player){
 		 player.cmd.buttons|=BT_USE;}
+		 A_Overlay(4,"shield.fullyready");
 		}
+		stop;
 	shield.fullyready:
 		TNT1 A 1{
 			
@@ -76,7 +78,7 @@ class HDRiotShieldItem:HDPickup{
 					invoker.shieldActor.target = self;
 				}
 			}
-		}stop;
+		}loop;
 	shield.evaporate:
 		TNT1 A 32 
 		{
@@ -86,6 +88,7 @@ class HDRiotShieldItem:HDPickup{
 		}
 		TNT1 A 1
 		{
+			A_ClearOverlays(4,4);
 			if (invoker.shieldActor)
 			{
 				invoker.shieldActor.destroy();
