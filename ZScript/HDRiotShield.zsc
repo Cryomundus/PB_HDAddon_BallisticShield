@@ -35,22 +35,30 @@ class HDRiotShieldItem:HDPickup{
 		{
 			if(!invoker.activated)
 			{
-				A_Overlay(5,"shield.spawn");
+				A_Overlay(5,"shield.spawn",true);
 				invoker.activated=true;
-				A_Log("Deploying Shield...");
 			}
-			else{A_ClearOverlays(5,5);A_DropInventory("HDRiotShieldItem");A_Log("Dropping Shield...");}
+			else
+			{
+				//A_ClearOverlays(5,5);
+				A_Overlay(5,"shield.evaporate",true);
+			}
 			
 			if(player){
 			player.cmd.buttons|=BT_USE;}
 		}fail;
 	
 	shield.spawn:
-		TNT1 A 32;
+		TNT1 A 32 
+		{
+			A_Log("Deploying shield...");
+			let hdp=hdplayerpawn(self);
+			hdp.stunned+=52;
+		}
 	shield.ready:
 		TNT1 A 0
 		{
-		A_Log("Ready! Use item to drop again.");
+		A_Log("Ready! Use item again to stow away.");
 		if(player){
 		 player.cmd.buttons|=BT_USE;}
 		}
@@ -68,7 +76,24 @@ class HDRiotShieldItem:HDPickup{
 					invoker.shieldActor.target = self;
 				}
 			}
-		}loop;
+		}stop;
+	shield.evaporate:
+		TNT1 A 32 
+		{
+			A_Log("Stowing away shield...");
+			let hdp=hdplayerpawn(self);
+			hdp.stunned+=52;
+		}
+		TNT1 A 1
+		{
+			if (invoker.shieldActor)
+			{
+				invoker.shieldActor.destroy();
+			}
+			A_Log("Shield stored.");
+			invoker.activated=false;
+		}
+		stop;
 	}
 }
 
@@ -115,7 +140,7 @@ class HDRiotShieldExt:HDActor{
 				{plr.gunbraced=false;plr.player.readyweapon.lookscale=0.35;}
 				else// if
 				{
-					plr.A_Log("Can't use long guns with this...");
+					plr.A_Log("Can't use that with the shield.");
 					plr.A_DropInventory("HDRiotShieldItem");
 				}
 			}
