@@ -1,0 +1,23 @@
+Model HDRiotShieldItem
+{
+   Path "models/riotshield"
+   Model 0 "shield.obj"
+   Skin 0 "shield.png"
+   Scale 11.5 11.5 11.5
+   Offset 1 1 -20
+   USEACTORPITCH
+
+   Frame RSH0 z 0 "frame01"
+}
+
+Model HDRiotShieldExt
+{
+   Path "models/riotshield"
+   Model 0 "shield.obj"
+   Skin 0 "shield.png"
+   Scale 11.5 11.5 11.5
+   Offset -12.1 0.1 -1.1
+   USEACTORPITCH
+
+   Frame RSH0 z 0 "frame01"
+}
