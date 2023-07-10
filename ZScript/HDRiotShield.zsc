@@ -67,8 +67,6 @@ class HDRiotShieldItem:HDPickup{
 		TNT1 A 1
 		{
 		A_Log("Ready! Use item again to stow away.");
-		if(player){
-		 player.cmd.buttons|=BT_USE;}
 		 A_Overlay(4,"shield.fullyready");
 		}
 		stop;
@@ -111,14 +109,15 @@ class HDRiotShieldItem:HDPickup{
 class HDRiotShieldExt:HDActor{
 	int uptime;
 	default{
-	+shootable +nodamage +noblood +dontthrust
+	+shootable +noblood +dontthrust
 	+solid +interpolateangles +slidesonwalls
 	PainChance 0;
 	mass 15;
 	radius 12;
 	Height 50;
-	health 10000;
-	damagefactor 0.0001;
+	health 150;
+	damagefactor "hot", 0.01;
+	damagefactor 0.5;
 	species "HDPlayerPawn";
 	}
 	
@@ -133,7 +132,13 @@ class HDRiotShieldExt:HDActor{
 	{
 		super.Tick();
 		let plr = HDPlayerPawn(target);
-		uptime++;
+		if (health<spawnhealth())
+		{health+=50;}
+		
+		if(health>spawnhealth())
+		{
+			health=spawnhealth();
+		}
 		
 		if(plr && uptime>32 && Distance3D(plr) > 64)
 		{
@@ -142,7 +147,8 @@ class HDRiotShieldExt:HDActor{
 		}
 		else if (uptime<32)
 		{
-			self.damagemobj(self,plr,32,"bashing");
+			uptime++;
+			self.damagemobj(self,plr,1,"bashing");
 		}
 		
 		if (plr)
@@ -165,6 +171,12 @@ class HDRiotShieldExt:HDActor{
 					plr.A_DropInventory("HDRiotShieldItem");
 				}
 			}
+		}
+		
+		if (health<15)
+		{
+			//plr.A_Log("Shield's taken too much damage!");
+			plr.A_DropInventory("HDRiotShieldItem");
 		}
 		if (!plr)
 			Destroy();
@@ -196,8 +208,12 @@ class HDRiotShieldExt:HDActor{
 		RSH0 Z 1;
 		goto spawn;
 	Death:
-		RSH0 Z 1;
-		stop;
+		RSH0 Z 1
+		{
+			let plr = HDPlayerPawn(target);
+			plr.A_DropInventory("HDRiotShieldItem");
+		}
+		goto spawn;
 	}
 }
 
