@@ -1,5 +1,12 @@
+//-------------------------------------------------
+// Ballistic Shield
+//-------------------------------------------------
+
 const HDLD_RIOTSHIELD="shd";
-const ENC_PBRIOTSHIELD=85;
+const ENC_PBRIOTSHIELD=165;
+
+//NO durability. I don't want to give myself another headache since figuring out
+//how to make this thing work is enough of a hassle already.
 
 class HDRiotShieldItem:HDPickup{
 	bool activated;
@@ -106,17 +113,18 @@ class HDRiotShieldExt:HDActor{
 	+shootable +nodamage +noblood +dontthrust
 	+solid +interpolateangles +slidesonwalls
 	PainChance 0;
-	mass 20;
+	mass 15;
 	radius 12;
 	Height 50;
 	health 10000;
 	damagefactor 0.0001;
 	species "HDPlayerPawn";
 	}
+	
 	override double bulletresistance(
 		double hitangle //abs(bullet.angleto(hitactor),bullet.angle)
 	){
-		return max(0,0.35);
+		return max(0.0,frandom(0.9,1.0)-hitangle*0.5);
 	}
 	
 	override void Tick() //josh771's changes
@@ -140,7 +148,10 @@ class HDRiotShieldExt:HDActor{
 				||(plr.player.readyweapon is "HDGrenadeThrower")
 				||(plr.player.readyweapon is "Blooper")
 				||(plr.player.readyweapon is "NullWeapon"))
-				{plr.gunbraced=false;plr.player.readyweapon.lookscale=0.35;}
+				{
+					plr.player.readyweapon.lookscale=0.35;
+					plr.stunned++;
+				}
 				else// if
 				{
 					plr.A_Log("Can't use that with the shield.");
@@ -182,31 +193,30 @@ class HDRiotShieldExt:HDActor{
 		stop;
 	}
 }
-/*
+
+
+//For testing purposes
 class HDRiotShield_Permanent:HDRiotShieldExt{
 	default{
 	mass 40;
 	gravity 1;
-	radius 10;
-	Height 60;
-	health 9000;
-	damagefactor 0.1;
 	species "riotshield";
+	}
+	
+	override void Tick() //josh771's changes
+	{
+		HDActor.Tick();
 	}
 	states{
 	spawn:
 		RSH0 Z -1;
 		loop;
 	pain:
-		RSH0 Z 2 A_StartSound("misc/riotshield/hit",chan_body,chanf_overlap);
-		goto spawn;
-	pain.bashing:
-	pain.fire:
-		RSH0 Z 2;
+		RSH0 Z 1;
 		goto spawn;
 	}
 }
-
+/*
 class HDRiotShield_SideHitbox:HDRiotShieldExt{
 	default{
 	mass 40;
@@ -225,3 +235,4 @@ class HDRiotShield_SideHitbox:HDRiotShieldExt{
 		stop;
 	}
 }
+*/
