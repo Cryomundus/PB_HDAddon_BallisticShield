@@ -117,6 +117,7 @@ class HDRiotShieldExt:HDActor{
 	Height 50;
 	health 150;
 	damagefactor "hot", 0.01;
+	damagefactor "balefire", 2;
 	damagefactor 0.5;
 	species "HDPlayerPawn";
 	}
@@ -133,7 +134,7 @@ class HDRiotShieldExt:HDActor{
 		super.Tick();
 		let plr = HDPlayerPawn(target);
 		if (health<spawnhealth())
-		{health+=50;}
+		{health+=5;}
 		
 		if(health>spawnhealth())
 		{
