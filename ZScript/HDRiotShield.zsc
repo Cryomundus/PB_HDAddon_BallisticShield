@@ -18,6 +18,7 @@ class HDRiotShieldItem:HDPickup{
 		height 10;radius 20;
 		hdpickup.bulk ENC_PBRIOTSHIELD;
 		hdpickup.refid HDLD_RIOTSHIELD;
+		+inventory.invbar
 		+hdpickup.notinpockets
 		-hdpickup.fitsinbackpack
 		inventory.maxamount 1;
