@@ -176,8 +176,11 @@ class HDRiotShieldExt:HDActor{
 		
 		if (health<15)
 		{
-			//plr.A_Log("Shield's taken too much damage!");
-			plr.A_DropInventory("HDRiotShieldItem");
+			if (plr)
+			{
+				plr.A_Log("Shield's taken too much damage!");
+				plr.A_DropInventory("HDRiotShieldItem");
+			}
 		}
 		if (!plr)
 			Destroy();
