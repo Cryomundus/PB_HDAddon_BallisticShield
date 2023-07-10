@@ -148,7 +148,7 @@ class HDRiotShieldExt:HDActor{
 		else if (uptime<32)
 		{
 			uptime++;
-			self.damagemobj(self,plr,1,"bashing");
+			self.damagemobj(self,plr,7,"bashing");
 		}
 		
 		if (plr)
