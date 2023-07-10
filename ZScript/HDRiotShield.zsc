@@ -212,7 +212,10 @@ class HDRiotShieldExt:HDActor{
 		RSH0 Z 1
 		{
 			let plr = HDPlayerPawn(target);
-			plr.A_DropInventory("HDRiotShieldItem");
+			if (plr)
+			{
+				plr.A_DropInventory("HDRiotShieldItem");
+			}
 		}
 		goto spawn;
 	}
