@@ -128,6 +128,7 @@ class HDRiotShieldExt:HDActor{
 		return max(0.0,frandom(0.9,1.0)-hitangle*0.5);
 	}
 	
+	
 	override void Tick() //josh771's changes
 	{
 		super.Tick();
@@ -139,6 +140,11 @@ class HDRiotShieldExt:HDActor{
 			plr.A_DropInventory("HDRiotShieldItem");
 			plr.A_Log("Butter fingers...");
 		}
+		else if (uptime<32)
+		{
+			self.damagemobj(self,plr,32,"bashing");
+		}
+		
 		if (plr)
 		{
 			if(plr.player.readyweapon)
